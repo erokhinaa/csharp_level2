@@ -1,0 +1,9 @@
+D:\GeekBrains\projects\csharp_level2\Asteroids\Asteroids\bin\Debug\Asteroids.exe.config
+D:\GeekBrains\projects\csharp_level2\Asteroids\Asteroids\bin\Debug\Asteroids.exe
+D:\GeekBrains\projects\csharp_level2\Asteroids\Asteroids\bin\Debug\Asteroids.pdb
+D:\GeekBrains\projects\csharp_level2\Asteroids\Asteroids\obj\Debug\Asteroids.csproj.AssemblyReference.cache
+D:\GeekBrains\projects\csharp_level2\Asteroids\Asteroids\obj\Debug\Asteroids.Properties.Resources.resources
+D:\GeekBrains\projects\csharp_level2\Asteroids\Asteroids\obj\Debug\Asteroids.csproj.GenerateResource.cache
+D:\GeekBrains\projects\csharp_level2\Asteroids\Asteroids\obj\Debug\Asteroids.csproj.CoreCompileInputs.cache
+D:\GeekBrains\projects\csharp_level2\Asteroids\Asteroids\obj\Debug\Asteroids.exe
+D:\GeekBrains\projects\csharp_level2\Asteroids\Asteroids\obj\Debug\Asteroids.pdb
