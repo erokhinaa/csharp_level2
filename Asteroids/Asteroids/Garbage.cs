@@ -17,7 +17,7 @@ namespace Asteroids
         public override void Draw()
         {
             //Game.Buffer.Graphics.DrawRectangle(Pens.White, Pos.X, Pos.Y, Size.Width, Size.Height);
-            Resources.garbage_bottle.MakeTransparent(Color.White);
+            //Resources.garbage_bottle.MakeTransparent(Color.White);
             Game.Buffer.Graphics.DrawImage(new Bitmap(Resources.garbage_bottle, Size.Width, Size.Height), new Rectangle(Pos.X, Pos.Y, Size.Width, Size.Height));
             
         }
