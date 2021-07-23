@@ -47,8 +47,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Asteroid.cs" />
+    <Compile Include="BaseObject.cs" />
+    <Compile Include="Bullet.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Garbage.cs" />
+    <Compile Include="ICollision.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Star.cs" />
@@ -76,34 +79,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\background.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\meteorBrown_big1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\meteorBrown_big2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\meteorBrown_big3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\meteorBrown_big4.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\planet.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\star1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\star2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\star3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\garbage_bottle.png" />
+    <None Include="Resources\laserRed011.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
