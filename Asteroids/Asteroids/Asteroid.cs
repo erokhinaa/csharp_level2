@@ -8,25 +8,20 @@ using Asteroids.Properties;
 
 namespace Asteroids
 {
-    class Asteroid
+    class Asteroid : BaseObject
     {
-        protected Point Pos;
-        protected Point Dir;
-        protected Size Size;
-        
-        public Asteroid (Point pos, Point dir, Size size)
+        private int index;
+        static Random rnd = new Random();
+                
+        public Asteroid (Point pos, Point dir, Size size) : base (pos, dir, size)
         {
-            Pos = pos;
-            Dir = dir;
-            Size = size;
+            index = rnd.Next(1, 4);
         }
 
-        public virtual void Draw()
+        override public void Draw()
         {
             //Game.Buffer.Graphics.DrawEllipse(Pens.White, Pos.X, Pos.Y, Size.Width, Size.Height);
-            Random rnd = new Random();
-            int i = rnd.Next(1, 4);
-            switch (i)
+            switch (index)
             {
             case 1:
                 Game.Buffer.Graphics.DrawImage(new Bitmap(Resources.meteorBrown_big1, Size.Width, Size.Height), new Rectangle(Pos.X, Pos.Y, Size.Width, Size.Height));
@@ -44,16 +39,16 @@ namespace Asteroids
 
         }
 
-        public virtual void Update()
+        public override void Update()
         {
             Pos.X += Dir.X;
             Pos.Y += Dir.Y;
 
             if (Pos.X < 0) Dir.X = -Dir.X;
             if (Pos.Y < 0) Dir.Y = -Dir.Y;
-            if (Pos.X > Game.Width) Dir.X = -Dir.X;            
-            if (Pos.Y > Game.Heigth) Dir.Y = -Dir.Y;
-
+            if (Pos.X > Game.Width  - this.Size.Width)  Dir.X = -Dir.X;
+            if (Pos.Y > Game.Heigth - this.Size.Height) Dir.Y = -Dir.Y;
         }
+
     }
 }
