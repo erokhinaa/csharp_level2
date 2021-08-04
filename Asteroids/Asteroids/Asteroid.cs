@@ -10,6 +10,7 @@ namespace Asteroids
 {
     class Asteroid : BaseObject
     {
+        private int _Default = 5;
         private int index;
         static Random rnd = new Random();
                 
@@ -17,7 +18,10 @@ namespace Asteroids
         {
             index = rnd.Next(1, 4);
         }
-
+        public int Default
+        {
+            get { return _Default; }            
+        }
         override public void Draw()
         {
             //Game.Buffer.Graphics.DrawEllipse(Pens.White, Pos.X, Pos.Y, Size.Width, Size.Height);
@@ -47,7 +51,7 @@ namespace Asteroids
             if (Pos.X < 0) Dir.X = -Dir.X;
             if (Pos.Y < 0) Dir.Y = -Dir.Y;
             if (Pos.X > Game.Width  - this.Size.Width)  Dir.X = -Dir.X;
-            if (Pos.Y > Game.Heigth - this.Size.Height) Dir.Y = -Dir.Y;
+            if (Pos.Y > Game.Height - this.Size.Height) Dir.Y = -Dir.Y;
         }
 
     }

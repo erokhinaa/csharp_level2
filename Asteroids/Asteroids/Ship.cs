@@ -14,7 +14,11 @@ namespace Asteroids
 
         private int _Damage;
 
+        private int _Ammo = 5;
+
         private int _Score = 0;
+
+        private int _Level = 1;
 
         public event EventHandler<ShipEventArgs> Die;
         public int Energy
@@ -26,6 +30,16 @@ namespace Asteroids
         {
             get { return _Score; }
             set { _Score = value; }
+        }
+        public int Ammo
+        {
+            get { return _Ammo; }
+            set { _Ammo = value; }
+        }
+        public int Level
+        {
+            get { return _Level; }
+            set { _Level = value; }
         }
 
         public void EnergyLow (int damage)
@@ -65,7 +79,7 @@ namespace Asteroids
 
         public void Down()
         {
-            if (Pos.Y < Game.Heigth - Size.Height - 2) // Что бы корабль не уходил ниже границы экрана Size.Height - 2
+            if (Pos.Y < Game.Height - Size.Height - 2) // Что бы корабль не уходил ниже границы экрана Size.Height - 2
                 Pos.Y += Dir.Y;
         }
                        

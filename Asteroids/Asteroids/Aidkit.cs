@@ -10,7 +10,7 @@ namespace Asteroids
 {
     class Aidkit : BaseObject
     {
-        private bool isLarge;
+        //private bool isLarge;
         private int index;
         static Random rnd = new Random();
         public Aidkit(Point pos, Point dir, Size size) : base(pos, dir, size)
@@ -41,7 +41,7 @@ namespace Asteroids
             if (Pos.X < 0) Dir.X = -Dir.X;
             if (Pos.Y < 0) Dir.Y = -Dir.Y;
             if (Pos.X > Game.Width - this.Size.Width) Dir.X = -Dir.X;
-            if (Pos.Y > Game.Heigth - this.Size.Height) Dir.Y = -Dir.Y;
+            if (Pos.Y > Game.Height - this.Size.Height) Dir.Y = -Dir.Y;
         }
     }
 }

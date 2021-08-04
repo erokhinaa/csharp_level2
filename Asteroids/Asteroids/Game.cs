@@ -10,24 +10,24 @@ using System.IO;
 
 namespace Asteroids
 {
-    static class Game
+    public class Game : BaseScene
     {
-        private static BufferedGraphicsContext context;
-        public static BufferedGraphics Buffer;
+        //private static BufferedGraphicsContext context;
+        //public static BufferedGraphics Buffer;
         static Timer timer;
-        public static int Width { get; set; }
-        public static int Heigth { get; set; }
-        static BaseObject[] asteroids;
+        //public static int Width { get; set; }
+        //public static int Height { get; set; }
+        static List<Asteroid> asteroids = new List<Asteroid>();
         static BaseObject[] stars;
-        static BaseObject[] garbage;
+        static List<Garbage> garbage = new List<Garbage>();
         static BaseObject[] aidkit;
-        static Bullet bullet;
+        static List<Bullet> bullets = new List<Bullet>();
         static Ship ship;        
-        public static Log log;
+        static Log log;
         public delegate void DLog (string s);
-        public static StreamWriter f;        
+        public static StreamWriter f;
 
-        public static void Init(Form form)
+        public override void Init(Form form)
         {
             log = new Log();
             DLog dlog = log.ConsoleWriteLog;
@@ -36,65 +36,52 @@ namespace Asteroids
             f.WriteLine("Start logging");
             f.Close();
 
-            context = BufferedGraphicsManager.Current;
-            Graphics g = form.CreateGraphics();
-                        
-            Width  = form.ClientSize.Width;
-            Heigth = form.ClientSize.Height;           
-
-            if (Width > 0 && Width < 1000)
-                Width = Width;            
-            else
-                throw new ArgumentOutOfRangeException("Width", "Width must be between 0 and 1000");
-            if (Heigth > 0 && Heigth < 1000)
-                Heigth = Heigth;            
-            else
-                throw new ArgumentOutOfRangeException("Heigth", "Heigth must be between 0 and 1000");
-
-            Buffer = context.Allocate(g, new Rectangle(0, 0, Width, Heigth));
+            base.Init(form);
 
             Load();
 
             form.KeyDown += OnFormKeyDown;
             timer = new Timer { Interval = 60 };
             timer.Tick += Timer_Tick;
-            timer.Start();            
-
+            timer.Start();
         }
-
-        private static void OnFormKeyDown(object sender, KeyEventArgs e)
+        
+        public void OnFormKeyDown(object sender, KeyEventArgs e)
         {
             // Управление в игре
             if (e.KeyCode == Keys.Up)   ship.Up();
             if (e.KeyCode == Keys.Down) ship.Down();
             if (e.KeyCode == Keys.ControlKey)
             {
-                bullet = new Bullet(new Point(ship.Rect.X+10, ship.Rect.Y+30), new Point(35, 0), new Size(54, 9));
-            }
+                if (ship.Ammo != 0)
+                {
+                    bullets.Add(new Bullet(new Point(ship.Rect.X + 10, ship.Rect.Y + 30), new Point(35, 0), new Size(54, 9)));
+                    ship.Ammo -= 1;
+                }
+            }            
         }
 
-        private static void Timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object sender, EventArgs e)
         {
             Update();
             if (timer.Enabled == true) Draw(); // Если таймер не остановлен, то перерисовываем
         }
-        public static void Draw()
+        public override void Draw()
         {
             //Buffer.Graphics.Clear(Color.Black);
-            Buffer.Graphics.DrawImage(new Bitmap(Resources.background, Width, Heigth), new Rectangle(0, 0, 800, 600)); // Фон
+            Buffer.Graphics.DrawImage(new Bitmap(Resources.background, Width, Height), new Rectangle(0, 0, 800, 600)); // Фон
 
             //Buffer.Graphics.FillEllipse(Brushes.Red, new Rectangle(100, 100, 200, 200));
-            Buffer.Graphics.DrawImage(new Bitmap(Resources.planet, Width, Heigth), new Rectangle(100, 100, 200, 200)); // Планета
+            Buffer.Graphics.DrawImage(new Bitmap(Resources.planet, Width, Height), new Rectangle(100, 100, 200, 200)); // Планета
 
             ship.Draw();
             Buffer.Graphics.DrawString($"Energy: {ship.Energy}", SystemFonts.DefaultFont, Brushes.White, 0, 0); // Здоровье корабля
-            Buffer.Graphics.DrawString($"Score: {ship.Score}", SystemFonts.DefaultFont, Brushes.White, 100, 0); // Очки игрока
+            Buffer.Graphics.DrawString($"Ammo: {ship.Ammo}", SystemFonts.DefaultFont, Brushes.White, 100, 0); // Патроны
+            Buffer.Graphics.DrawString($"Score: {ship.Score}", SystemFonts.DefaultFont, Brushes.White, 200, 0); // Очки игрока
+            Buffer.Graphics.DrawString($"Level: {ship.Level}", SystemFonts.DefaultFont, Brushes.White, 300, 0); // Уровень
 
-            foreach (BaseObject asteroid in asteroids)
-            {
-                if (asteroid == null) continue; 
-                asteroid.Draw();
-            }
+            foreach (BaseObject asteroid in asteroids)            
+                asteroid.Draw();            
 
             foreach (BaseObject star in stars)
             {
@@ -103,7 +90,6 @@ namespace Asteroids
 
             foreach(BaseObject gb in garbage)
             {
-                if (gb == null) continue;
                 gb.Draw();
             }
 
@@ -113,7 +99,7 @@ namespace Asteroids
                 kit.Draw();
             }
 
-            if (bullet != null)
+            foreach (BaseObject bullet in bullets)            
                 bullet.Draw();
             
             Buffer.Render();
@@ -129,76 +115,97 @@ namespace Asteroids
         public static void Update()
         {
             Random rnd = new Random();
+            Random gen = new Random();
 
-            // Пока что костыль на проверку если игрок выиграл. Нужно будет сделать через событие
-            int len = 0;
-            for (int i = 0; i < asteroids.Length; i++)
+            if (ship.Level == 5)
             {
-                if (asteroids[i] == null)
-                {
-                    len++;
+                // Победа! Останавливаем таймер
+                timer.Stop();
+                Buffer.Graphics.DrawString("You Win!", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Bold), Brushes.White, 200, 100); // Рисуем текст об окончании
+                Buffer.Graphics.DrawString($"Your Score: {ship.Score}", new Font(FontFamily.GenericSansSerif, 40, FontStyle.Bold), Brushes.White, 260, 180); // Рисуем кол-во заработанных очков
+                Buffer.Render();
+            }
+            // Если коллекция астероидов пуста, то следующий уровень, +1 астероид в коллекцию
+            if (asteroids.Count == 0)
+            {
+                // Следующий уровень                
+                ship.Level += 1;
+                ship.Energy = 100;
+                ship.Ammo = 5;
+                for (int i = 1; i <= 5+ship.Level; i++)
+                    asteroids.Add(new Asteroid(new Point(600, i * 20 + 5), new Point(rnd.Next(i, 20), rnd.Next(i, 20)), new Size(rnd.Next(10, 40), rnd.Next(10, 40))));
 
-                    if (len == asteroids.Length)
+                // Если есть мусор, то удаляем и инициализируем заново
+                for (int n = asteroids.Count - 1; n >= 0; n--)
+                    garbage.RemoveAt(n);                
+
+                for (int g = 2+ship.Level; g >= 0; g--)
+                {                    
+                    garbage.Add(new Garbage(new Point(600, g * 30 + 5), new Point(gen.Next(g, garbage.Count), gen.Next(g, garbage.Count)), new Size(36, 36)));
+                }
+            }
+                        
+            // Проверяем попадания и столкновения с астероидами с учетом коллекции
+            for (int i = asteroids.Count - 1; i >= 0; i--)
+            {
+                if (asteroids[i].Collision(ship))
+                {
+                    System.Media.SystemSounds.Asterisk.Play();
+                    ship.EnergyLow(rnd.Next(10, 15));
+                    if (ship.Energy <= 0)
+                        ship.ShipDie();
+                    asteroids.RemoveAt(i);
+                    continue;
+                }
+                for (int n = bullets.Count - 1; n >= 0; n--)
+                {
+                    if (asteroids[i].Collision(bullets[n]))
                     {
-                        // Победа! Останавливаем таймер
-                        timer.Stop();
-                        Buffer.Graphics.DrawString("You Win!", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Bold), Brushes.White, 200, 100); // Рисуем текст об окончании
-                        Buffer.Graphics.DrawString($"Your Score: {ship.Score}", new Font(FontFamily.GenericSansSerif, 40, FontStyle.Bold), Brushes.White, 260, 180); // Рисуем кол-во заработанных очков
-                        Buffer.Render();
+                        System.Media.SystemSounds.Hand.Play();
+                        asteroids.RemoveAt(i);
+                        bullets.RemoveAt(n);
+                        ship.Score += 100;
+                        ship.Ammo += 2;
+                        break;
                     }
-                    continue;
+                    // Проверяем попадания и столкновения с мусором
+                    for (int g = garbage.Count - 1; g >= 0; g--)
+                    {
+                        if (garbage[g].Collision(bullets[n]))
+                        {
+                            System.Media.SystemSounds.Hand.Play();
+                            garbage.RemoveAt(g);
+                            bullets.RemoveAt(n);
+                            ship.Score += 1;
+                            continue;
+                        }
+
+                        if (garbage[g].Collision(ship))
+                        {
+                            System.Media.SystemSounds.Asterisk.Play();
+                            ship.EnergyLow(1);
+                            if (ship.Energy <= 0)
+                                ship.ShipDie();
+                        }
+                    }
                 }
             }
 
-            // Проверяем попадания и столкновения с астероидами
-            for (int i = 0; i < asteroids.Length; i++)
+            for (int n = bullets.Count - 1; n >= 0; n--)
             {
-                if (asteroids[i] == null) continue;
-                
-                asteroids[i].Update();
-
-                if (bullet != null && asteroids[i].Collision(bullet))
-                {
-                    System.Media.SystemSounds.Hand.Play();
-                    asteroids[i] = null;
-                    bullet = null;
-                    ship.Score += 100;
-                    continue;
-                }
-
-                if (ship.Collision(asteroids[i]))
-                {
-                    System.Media.SystemSounds.Asterisk.Play();
-                    ship.EnergyLow(rnd.Next(10, 18));
-                    if (ship.Energy <= 0)
-                        ship.ShipDie();
-                }
-
+                if (bullets[n].Rect.X > Game.Width)
+                    bullets.RemoveAt(n);
             }
-            // Проверяем попадания и столкновения с мусором
-            for (int i = 0; i < garbage.Length; i++)
-            {
-                if (garbage[i] == null) continue;
-                garbage[i].Update();
 
-                if (bullet != null && garbage[i].Collision(bullet))
-                {
-                    System.Media.SystemSounds.Hand.Play();
-                    garbage[i] = null;
-                    bullet = null;
-                    ship.Score += 1;
-                    continue;
-                }
+            foreach (BaseObject asteroid in asteroids)
+                asteroid.Update();
+            
+            foreach (BaseObject bullet in bullets)
+                bullet.Update();
 
-                if (ship.Collision(garbage[i]))
-                {
-                    System.Media.SystemSounds.Asterisk.Play();
-                    ship.EnergyLow(1);
-                    if (ship.Energy <= 0)
-                        ship.ShipDie();
-                }
+            foreach (BaseObject gb in garbage)
+                gb.Update();
 
-            }
             // Проверяем столкновение с аптечкой
             for (int i = 0; i < aidkit.Length; i++)
             {
@@ -216,12 +223,10 @@ namespace Asteroids
             }
 
             foreach (BaseObject star in stars)
-            {
                 star.Update();
-            }
 
-            if (bullet != null)
-                bullet.Update();
+            //if (bullet != null)
+            //    bullet.Update();
 
             ship.Update();
 
@@ -243,12 +248,12 @@ namespace Asteroids
             ship.Die += OnShipDie;
              
             // Инициализируем астероиды
-            asteroids = new BaseObject[10];
-            for (int i = 1; i <= asteroids.Length; i++)
+            //asteroids = new BaseObject[10]; Теперь используем коллекцию
+            for (int i = 1; i <= 5; i++)
             {
-                rnd = gen.Next(i, asteroids.Length);
+                rnd = gen.Next(i, 10);
                 var size = random.Next(10, 40);
-                asteroids[i-1] = new Asteroid(new Point(600, i * 20 + 5), new Point(rnd, rnd), new Size(size, size));
+                asteroids.Add(new Asteroid(new Point(600, i * 20 + 5), new Point(rnd, rnd), new Size(size, size)));
             }
 
             // Инициализируем звезды
@@ -260,11 +265,10 @@ namespace Asteroids
             }
 
             // Инициализируем мусор
-            garbage = new BaseObject[2];
-            for (int i = 1; i <= garbage.Length; i++)
+            for (int i = 1; i <= 2; i++)
             {
-                rnd = gen.Next(i, garbage.Length);
-                garbage[i-1] = new Garbage(new Point(600, i * 30 + 5), new Point(rnd, rnd), new Size(36, 36));
+                rnd = gen.Next(i, 2);
+                garbage.Add(new Garbage(new Point(600, i * 30 + 5), new Point(rnd, rnd), new Size(36, 36)));
             }
 
             // Инициализируем аптечки

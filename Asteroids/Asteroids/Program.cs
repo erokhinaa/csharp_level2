@@ -24,10 +24,15 @@ namespace Asteroids // ЕРОХИН АЛЕКСАНДР АНДРЕЕВИЧ. Фа�
                 Text = "Asteroids"
             };
 
-            Game.Init(form);
             form.Show();
-            Game.Draw();
+
+            SceneManager
+                .Get()
+                .Init<MenuScene>(form)
+                .Draw();
+
             Application.Run(form);
+
         }
     }
 }

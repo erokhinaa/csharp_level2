@@ -49,13 +49,18 @@
     <Compile Include="Aidkit.cs" />
     <Compile Include="Asteroid.cs" />
     <Compile Include="BaseObject.cs" />
+    <Compile Include="BaseScene.cs" />
     <Compile Include="Bullet.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Garbage.cs" />
+    <Compile Include="HelpScene.cs" />
     <Compile Include="ICollision.cs" />
+    <Compile Include="IScene.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="MenuScene.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SceneManager.cs" />
     <Compile Include="Ship.cs" />
     <Compile Include="Star.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -95,6 +100,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Ship.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\planet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\background.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
