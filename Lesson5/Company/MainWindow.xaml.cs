@@ -35,8 +35,41 @@ namespace Company
         {
             if (e.AddedItems.Count != 0)
             {
-                PersonControl.SetPerson((Person)e.AddedItems[0]);
+                personControl.SetPerson((Person)e.AddedItems[0]);
             }
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (PersonsListView.SelectedItems.Count > 0)
+            {
+                personControl.UpdatePerson();
+                UpdateBinding();
+            }
+        }
+
+        private void UpdateBinding()
+        {
+            PersonsListView.ItemsSource = null;
+            PersonsListView.ItemsSource = database.Persons;
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (PersonsListView.SelectedItems.Count < 1)
+                return;
+
+            if (MessageBox.Show("Хотите уволить сотрудника?", "Увольнение сотрудника", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                database.Persons.Remove((Person)PersonsListView.SelectedItems[0]);
+                UpdateBinding();
+            }
+            
+        }
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindow.Close();
         }
     }
 }
