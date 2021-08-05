@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Company.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Employee.Data
+namespace Person.Data
 {
-    public class Person
+    public class Employee
     {
         public int ID { get; set; } // Идентификатор сотрудника
         public string FirstName { get; set; } // Имя сотрудника
@@ -16,16 +17,18 @@ namespace Employee.Data
         public string Comment { get; set; } // Комментарий
         public bool Works { get; set; } // Статус - работает ли сотрудник в настоящий момент
 
-        public PersonCategory Category { get; set; } = PersonCategory.FullTime;
+        public EmployeeCategory Category { get; set; } = EmployeeCategory.FullTime;
+
+        public Department department { get; set; }
 
         public string FIO // Метод для вывода ФИО сотрудника
         {
             get { return $"{LastName} {FirstName} {SecondName}"; }
         }
 
-        public Person() { } // Конструктор по умолчанию
+        public Employee() { } // Конструктор по умолчанию
 
-        public Person(int id, string lastname, string firstname, string secondname, string position)
+        public Employee(int id, string lastname, string firstname, string secondname, string position)
         {
             ID = id;
             LastName = lastname;
@@ -33,7 +36,8 @@ namespace Employee.Data
             SecondName = secondname;
             Position = position;
         }
-        public Person(int id, string lastname, string firstname, string secondname, string position, bool works, PersonCategory category)
+
+        public Employee(int id, string lastname, string firstname, string secondname, string position, bool works, EmployeeCategory category)
         {
             ID = id;
             LastName = lastname;
@@ -45,6 +49,18 @@ namespace Employee.Data
             Category = category;
         }
 
+        public Employee(int id, string lastname, string firstname, string secondname, string position, bool works, EmployeeCategory category, Department department)
+        {
+            ID = id;
+            LastName = lastname;
+            FirstName = firstname;
+            SecondName = secondname;
+            Position = position;
+
+            Works = true;
+            Category = category;
+            this.department = department;
+        }
         public override string ToString()
         {
             return $"{ID} - {LastName} {FirstName} {SecondName}";

@@ -1,4 +1,5 @@
-﻿using Employee.Data;
+﻿using Company.Data;
+using Person.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,38 +22,41 @@ namespace Department.Components
     /// </summary>
     public partial class PersonControl : UserControl
     {
-        private Person person;
+        private Employee employee;
 
         public PersonControl()
         {
             InitializeComponent();
 
-            cbCategory.ItemsSource = Enum.GetValues(typeof(PersonCategory)).Cast<PersonCategory>();
+            cbCategory.ItemsSource = Enum.GetValues(typeof(EmployeeCategory)).Cast<EmployeeCategory>();
+            сbDepartment.ItemsSource = Enum.GetValues(typeof(Company.Data.Department)).Cast<Company.Data.Department>();
         }
 
-        public void SetPerson(Person person)
+        public void SetPerson(Employee employee)
         {
-            this.person = person;
-            tbID.Text = person.ID.ToString();
-            tbLastName.Text = person.LastName;
-            tbFirstName.Text = person.FirstName;
-            tbSecondName.Text = person.SecondName;
-            tbPosition.Text = person.Position;
-            cbCategory.SelectedItem = person.Category;
-            checkWorks.IsChecked = person.Works;
-            tbComment.Text = person.Comment;
+            this.employee = employee;
+            tbID.Text = employee.ID.ToString();
+            tbLastName.Text = employee.LastName;
+            tbFirstName.Text = employee.FirstName;
+            tbSecondName.Text = employee.SecondName;
+            tbPosition.Text = employee.Position;
+            cbCategory.SelectedItem = employee.Category;
+            checkWorks.IsChecked = employee.Works;
+            tbComment.Text = employee.Comment;
+            сbDepartment.SelectedItem = employee.department;
         }
 
         public void UpdatePerson()
         {
-            person.ID = int.Parse(tbID.Text);
-            person.LastName = tbLastName.Text;
-            person.FirstName = tbFirstName.Text;
-            person.SecondName = tbSecondName.Text;
-            person.Position = tbPosition.Text;
-            person.Category= (PersonCategory)cbCategory.SelectedItem;
-            person.Works = (bool)checkWorks.IsChecked;
-            person.Comment = tbComment.Text;            
+            employee.ID = int.Parse(tbID.Text);
+            employee.LastName = tbLastName.Text;
+            employee.FirstName = tbFirstName.Text;
+            employee.SecondName = tbSecondName.Text;
+            employee.Position = tbPosition.Text;
+            employee.Category= (EmployeeCategory)cbCategory.SelectedItem;
+            employee.Works = (bool)checkWorks.IsChecked;
+            employee.Comment = tbComment.Text;
+            employee.department = (Company.Data.Department)сbDepartment.SelectedItem;
         }
     }
 }

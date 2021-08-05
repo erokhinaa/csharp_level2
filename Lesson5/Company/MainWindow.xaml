@@ -6,22 +6,24 @@
         xmlns:local="clr-namespace:Company"
         xmlns:Controls="clr-namespace:Department.Components;assembly=Department.Components" x:Class="Company.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800"
-        x:Name="mainWindow">
+        Title="MainWindow" Height="600" Width="921.75"
+        x:Name="mainWindow" WindowStartupLocation="CenterScreen">
     <Grid>
         <ListView x:Name="PersonsListView" Margin="10,10,394,10" SelectionMode="Single" SelectionChanged="PersonsListView_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="auto" Header="Идентификатор" DisplayMemberBinding="{Binding ID}"/>
                     <GridViewColumn Width="auto" Header="ФИО" DisplayMemberBinding="{Binding FIO}"/>
+                    <GridViewColumn Width="auto" Header="Должность" DisplayMemberBinding="{Binding Position}"/>
                 </GridView>
             </ListView.View>
+            <Controls:PersonControl Height="100" Width="100"/>
         </ListView>
 
         <Controls:PersonControl x:Name="personControl" Height="367" Margin="0,10,10,0" VerticalAlignment="Top" Width="379" HorizontalAlignment="Right"/>
-        <Button x:Name="btnSave" Content="Сохранить" Margin="694,397,0,0" Click="btnSave_Click" HorizontalAlignment="Left" Width="75" Height="31" VerticalAlignment="Top"/>
-        <Button x:Name="btnDelete" Content="Удалить" Margin="694,433,0,0" Click="btnDelete_Click" HorizontalAlignment="Left" Width="75" Height="31" VerticalAlignment="Top"/>
-        <Button x:Name="btnExit" Content="Выход" Margin="694,517,0,0" Click="btnExit_Click" HorizontalAlignment="Left" Width="75" Height="31" VerticalAlignment="Top"/>
+        <Button x:Name="btnSave" Content="Сохранить" Margin="806,395,0,0" Click="btnSave_Click" HorizontalAlignment="Left" Width="75" Height="31" VerticalAlignment="Top"/>
+        <Button x:Name="btnDelete" Content="Удалить" Margin="806,431,0,0" Click="btnDelete_Click" HorizontalAlignment="Left" Width="75" Height="31" VerticalAlignment="Top"/>
+        <Button x:Name="btnExit" Content="Выход" Margin="806,517,0,0" Click="btnExit_Click" HorizontalAlignment="Left" Width="75" Height="31" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

@@ -1,5 +1,5 @@
 ﻿using Department.Components;
-using Employee.Data;
+using Person.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,13 +21,14 @@ namespace Company
     /// </summary>
     public partial class MainWindow : Window
     {
-        private DepartmentDatabase database = new DepartmentDatabase();
+        private Database database = new Database();
 
         public MainWindow()
         {
             InitializeComponent();
 
-            PersonsListView.ItemsSource = database.Persons;
+            PersonsListView.Items.Clear();
+            PersonsListView.ItemsSource = database.Employees;
 
         }
 
@@ -35,7 +36,7 @@ namespace Company
         {
             if (e.AddedItems.Count != 0)
             {
-                personControl.SetPerson((Person)e.AddedItems[0]);
+                personControl.SetPerson((Employee)e.AddedItems[0]);
             }
         }
 
@@ -51,7 +52,7 @@ namespace Company
         private void UpdateBinding()
         {
             PersonsListView.ItemsSource = null;
-            PersonsListView.ItemsSource = database.Persons;
+            PersonsListView.ItemsSource = database.Employees;
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -61,7 +62,7 @@ namespace Company
 
             if (MessageBox.Show("Хотите уволить сотрудника?", "Увольнение сотрудника", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                database.Persons.Remove((Person)PersonsListView.SelectedItems[0]);
+                database.Employees.Remove((Employee)PersonsListView.SelectedItems[0]);
                 UpdateBinding();
             }
             

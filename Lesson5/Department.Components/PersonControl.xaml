@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Department.Components"
-             mc:Ignorable="d" Height="335" Width="377">
+             mc:Ignorable="d" Height="382.261" Width="377">
     <Grid>
         <Label x:Name="lbID" Content="Идентификатор сотрудника:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lbLastName" Content="Фамилия:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
@@ -18,8 +18,10 @@
         <TextBox  x:Name="tbSecondName" HorizontalAlignment="Left" Height="23" Margin="106,106,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="261"/>
         <TextBox  x:Name="tbPosition" HorizontalAlignment="Left" Height="23" Margin="106,137,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="261"/>
         <ComboBox x:Name="cbCategory" HorizontalAlignment="Left" Margin="106,169,0,0" VerticalAlignment="Top" Width="261"/>
-        <CheckBox x:Name="checkWorks" Content="Работает" HorizontalAlignment="Left" Margin="296,196,0,0" VerticalAlignment="Top"/>
-        <TextBox  x:Name="tbComment" Margin="10,215,12,10" TextWrapping="Wrap" Text=""/>
+        <CheckBox x:Name="checkWorks" Content="Работает" HorizontalAlignment="Left" Margin="296,229,0,0" VerticalAlignment="Top"/>
+        <TextBox  x:Name="tbComment" Margin="10,249,12,10" TextWrapping="Wrap" Text=""/>
+        <Label    x:Name="tbDepartment" Content="Департамент:" HorizontalAlignment="Left" Margin="10,201,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="сbDepartment" HorizontalAlignment="Left" Margin="106,201,0,0" VerticalAlignment="Top" Width="261"/>
     </Grid>
 </UserControl>
 

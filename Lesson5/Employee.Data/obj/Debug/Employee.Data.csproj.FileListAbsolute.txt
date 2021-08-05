@@ -1,6 +1,5 @@
 D:\GeekBrains\projects\csharp_level2\Lesson5\Employee.Data\bin\Debug\Employee.Data.dll
 D:\GeekBrains\projects\csharp_level2\Lesson5\Employee.Data\bin\Debug\Employee.Data.pdb
-D:\GeekBrains\projects\csharp_level2\Lesson5\Employee.Data\obj\Debug\Employee.Data.csproj.AssemblyReference.cache
 D:\GeekBrains\projects\csharp_level2\Lesson5\Employee.Data\obj\Debug\Employee.Data.csproj.CoreCompileInputs.cache
 D:\GeekBrains\projects\csharp_level2\Lesson5\Employee.Data\obj\Debug\Employee.Data.dll
 D:\GeekBrains\projects\csharp_level2\Lesson5\Employee.Data\obj\Debug\Employee.Data.pdb
