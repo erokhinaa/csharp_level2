@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="Department.Components.PersonControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Department.Components"
+             mc:Ignorable="d" Height="382.261" Width="377">
+    <Grid>
+        <Label x:Name="lbID" Content="Идентификатор сотрудника:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbLastName" Content="Фамилия:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbFirstName" Content="Имя:" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbSecondName" Content="Отчество:" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbPosition" Content="Должность:" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbCategory" Content="Категория:" HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top"/>
+        <TextBox  x:Name="tbID" HorizontalAlignment="Left" Height="23" Margin="181,13,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="186"/>
+        <TextBox  x:Name="tbLastName" HorizontalAlignment="Left" Height="23" Margin="106,44,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="261"/>
+        <TextBox  x:Name="tbFirstName" HorizontalAlignment="Left" Height="23" Margin="106,75,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="261"/>
+        <TextBox  x:Name="tbSecondName" HorizontalAlignment="Left" Height="23" Margin="106,106,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="261"/>
+        <TextBox  x:Name="tbPosition" HorizontalAlignment="Left" Height="23" Margin="106,137,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="261"/>
+        <ComboBox x:Name="cbCategory" HorizontalAlignment="Left" Margin="106,169,0,0" VerticalAlignment="Top" Width="261"/>
+        <CheckBox x:Name="checkWorks" Content="Работает" HorizontalAlignment="Left" Margin="296,229,0,0" VerticalAlignment="Top"/>
+        <TextBox  x:Name="tbComment" Margin="10,249,12,10" TextWrapping="Wrap" Text=""/>
+        <Label    x:Name="tbDepartment" Content="Департамент:" HorizontalAlignment="Left" Margin="10,201,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="сbDepartment" HorizontalAlignment="Left" Margin="106,201,0,0" VerticalAlignment="Top" Width="261"/>
+    </Grid>
+</UserControl>
+
