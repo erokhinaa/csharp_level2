@@ -2,6 +2,7 @@
 using Person.Data;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,20 +24,24 @@ namespace Company
     {
         private Database database = new Database();
 
+        public ObservableCollection<Employee> EmployeesList { get; set; }
+
+        public Employee SelectedEmployee { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
 
-            PersonsListView.Items.Clear();
-            PersonsListView.ItemsSource = database.Employees;
-
+            this.DataContext = this;
+            
+            EmployeesList = database.Employees;            
         }
 
         private void PersonsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count != 0)
             {
-                personControl.SetPerson((Employee)e.AddedItems[0]);
+                personControl.employee = (Employee)(e.AddedItems[0] as Employee).Clone();
             }
         }
 
@@ -44,16 +49,17 @@ namespace Company
         {
             if (PersonsListView.SelectedItems.Count > 0)
             {
-                personControl.UpdatePerson();
-                UpdateBinding();
+                database.Employees[database.Employees.IndexOf((Employee)PersonsListView.SelectedItems[0])] = personControl.employee;
+                //personControl.UpdatePerson();
+                //UpdateBinding();
             }
         }
 
-        private void UpdateBinding()
+        /*private void UpdateBinding()
         {
             PersonsListView.ItemsSource = null;
             PersonsListView.ItemsSource = database.Employees;
-        }
+        }*/
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
@@ -62,8 +68,8 @@ namespace Company
 
             if (MessageBox.Show("Хотите уволить сотрудника?", "Увольнение сотрудника", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                database.Employees.Remove((Employee)PersonsListView.SelectedItems[0]);
-                UpdateBinding();
+                database.Employees.Remove((Employee)PersonsListView.SelectedItems[0]);                
+                //UpdateBinding();
             }
             
         }

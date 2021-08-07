@@ -1,25 +1,83 @@
 ﻿using Company.Data;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Person.Data
 {
-    public class Employee
+    public class Employee : INotifyPropertyChanged, ICloneable
     {
-        public int ID { get; set; } // Идентификатор сотрудника
-        public string FirstName { get; set; } // Имя сотрудника
-        public string LastName { get; set; } // Фамилия сотрудника
-        public string SecondName { get; set; } // Отчество сотрудника
-        public string Position { get; set; } // Должность сотрудника
-        public string Comment { get; set; } // Комментарий
-        public bool Works { get; set; } // Статус - работает ли сотрудник в настоящий момент
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
 
-        public EmployeeCategory Category { get; set; } = EmployeeCategory.FullTime;
+        public int _ID; // Идентификатор сотрудника
+        public string _FirstName; // Имя сотрудника
+        public string _LastName; // Фамилия сотрудника
+        public string _SecondName; // Отчество сотрудника
+        public string _Position; // Должность сотрудника
+        public string _Comment; // Комментарий
+        public bool _Works; // Статус - работает ли сотрудник в настоящий момент
+        public EmployeeCategory _Category = EmployeeCategory.FullTime; // Категория работника
+        public Department _department; // Департамент
+        
+        public int ID
+        {
+            get { return _ID; }
+            set { _ID = value; NotifyPropertyChanged(); } 
+        } 
+        
+        public string FirstName
+        {
+            get { return _FirstName; }
+            set { _FirstName = value; NotifyPropertyChanged(); }
+        }
+        public string LastName
+        {
+            get { return _LastName; }
+            set { _LastName = value; NotifyPropertyChanged(); }
+        }
+        public string SecondName
+        {
+            get { return _SecondName; }
+            set { _SecondName = value; NotifyPropertyChanged(); }
+        }
+        public string Position
+        {
+            get { return _Position; }
+            set { _Position = value; NotifyPropertyChanged(); }
+        }
+        public string Comment
+        {
+            get { return _Comment; }
+            set { _Comment = value; NotifyPropertyChanged(); }
+        }
+        public bool Works
+        {
+            get { return _Works; }
+            set { _Works = value; NotifyPropertyChanged(); }
+        }
 
-        public Department department { get; set; }
+        public EmployeeCategory Category
+        {
+            get { return _Category; }
+            set { _Category = value; NotifyPropertyChanged(); }
+        }
+
+        public Department department
+        {
+            get { return _department; }
+            set { _department = value; NotifyPropertyChanged(); }
+        }
 
         public string FIO // Метод для вывода ФИО сотрудника
         {
@@ -35,6 +93,8 @@ namespace Person.Data
             FirstName = firstname;
             SecondName = secondname;
             Position = position;
+            
+            Works = true;            
         }
 
         public Employee(int id, string lastname, string firstname, string secondname, string position, bool works, EmployeeCategory category)
@@ -61,12 +121,15 @@ namespace Person.Data
             Category = category;
             this.department = department;
         }
+
         public override string ToString()
         {
             return $"{ID} - {LastName} {FirstName} {SecondName}";
         }
 
-
-
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }

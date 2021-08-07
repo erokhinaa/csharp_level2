@@ -2,7 +2,9 @@
 using Person.Data;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,18 +22,43 @@ namespace Department.Components
     /// <summary>
     /// Interaction logic for PersonControl.xaml
     /// </summary>
-    public partial class PersonControl : UserControl
+    public partial class PersonControl : UserControl, INotifyPropertyChanged
     {
-        private Employee employee;
+        private Employee _employee;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        public Employee employee
+        {
+            get { return _employee; }
+            set { _employee = value; NotifyPropertyChanged(); }
+        }
+
+        public List<EmployeeCategory> CategoryList { get; set; } = new List<EmployeeCategory>();
+        public List<Company.Data.Department> DepartmentList { get; set; } = new List<Company.Data.Department>();
 
         public PersonControl()
         {
             InitializeComponent();
 
-            cbCategory.ItemsSource = Enum.GetValues(typeof(EmployeeCategory)).Cast<EmployeeCategory>();
-            сbDepartment.ItemsSource = Enum.GetValues(typeof(Company.Data.Department)).Cast<Company.Data.Department>();
-        }
+            this.DataContext = this;
 
+            //cbCategory.ItemsSource = Enum.GetValues(typeof(EmployeeCategory)).Cast<EmployeeCategory>();
+            //сbDepartment.ItemsSource = Enum.GetValues(typeof(Company.Data.Department)).Cast<Company.Data.Department>();
+            CategoryList.Add(EmployeeCategory.FullTime);
+            CategoryList.Add(EmployeeCategory.Freelance);
+            DepartmentList.Add(Company.Data.Department.Business);
+            DepartmentList.Add(Company.Data.Department.HR);
+            DepartmentList.Add(Company.Data.Department.IT);
+            DepartmentList.Add(Company.Data.Department.Management);
+        }
+        /*
         public void SetPerson(Employee employee)
         {
             this.employee = employee;
@@ -58,5 +85,6 @@ namespace Department.Components
             employee.Comment = tbComment.Text;
             employee.department = (Company.Data.Department)сbDepartment.SelectedItem;
         }
+        */
     }
 }

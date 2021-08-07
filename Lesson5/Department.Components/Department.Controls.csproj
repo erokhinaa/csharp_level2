@@ -63,12 +63,6 @@
     <Compile Include="PersonControl.xaml.cs">
       <DependentUpon>PersonControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PersonEditor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PersonEditor.Designer.cs">
-      <DependentUpon>PersonEditor.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -82,9 +76,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="PersonEditor.resx">
-      <DependentUpon>PersonEditor.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

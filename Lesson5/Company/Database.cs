@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,12 +11,12 @@ namespace Company
 {
     public class Database
     {
-        public List<Employee> Employees { get; set; }
-        public object Persons { get; set; }
+        //public List<Employee> Employees { get; set; }
+        public ObservableCollection<Employee> Employees { get; set; }
 
         public Database()
         {
-            Employees = new List<Employee>();
+            Employees = new ObservableCollection<Employee>();
             /*Employees.Add(new Employee(1, "Иванов","Иван","Иванович","Программист",true,Data.EmployeeCategory.FullTime,Data.Department.IT));
             Employees.Add(new Employee(2, "Александров", "Александр", "Александрович", "Программист", true, Data.EmployeeCategory.FullTime, Data.Department.IT));
             Employees.Add(new Employee(3, "Андреев", "Андрей", "Андреевич", "Тестировщик", true, Data.EmployeeCategory.FullTime, Data.Department.IT));

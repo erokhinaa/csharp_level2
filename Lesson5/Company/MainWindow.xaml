@@ -9,11 +9,13 @@
         Title="MainWindow" Height="600" Width="921.75"
         x:Name="mainWindow" WindowStartupLocation="CenterScreen">
     <Grid>
-        <ListView x:Name="PersonsListView" Margin="10,10,394,10" SelectionMode="Single" SelectionChanged="PersonsListView_SelectionChanged">
+        
+        <ListView ItemsSource="{Binding EmployeesList}" SelectedItem="{Binding SelectedEmployee}" x:Name="PersonsListView" Margin="10,10,394,10" SelectionMode="Single" SelectionChanged="PersonsListView_SelectionChanged">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="auto" Header="Идентификатор" DisplayMemberBinding="{Binding ID}"/>
-                    <GridViewColumn Width="auto" Header="ФИО" DisplayMemberBinding="{Binding FIO}"/>
+                    <GridViewColumn Width="auto" Header="Фамилия" DisplayMemberBinding="{Binding LastName}"/>
+                    <GridViewColumn Width="auto" Header="Имя" DisplayMemberBinding="{Binding FirstName}"/>
+                    <GridViewColumn Width="auto" Header="Отчество" DisplayMemberBinding="{Binding SecondName}"/>
                     <GridViewColumn Width="auto" Header="Должность" DisplayMemberBinding="{Binding Position}"/>
                 </GridView>
             </ListView.View>
