@@ -97,7 +97,7 @@ namespace Person.Data
             Works = true;            
         }
 
-        public Employee(int id, string lastname, string firstname, string secondname, string position, bool works, EmployeeCategory category)
+        public Employee(int id, string lastname, string firstname, string secondname, string position, EmployeeCategory category)
         {
             ID = id;
             LastName = lastname;
@@ -109,7 +109,7 @@ namespace Person.Data
             Category = category;
         }
 
-        public Employee(int id, string lastname, string firstname, string secondname, string position, bool works, EmployeeCategory category, Department department)
+        public Employee(int id, string lastname, string firstname, string secondname, string position, EmployeeCategory category, Department department)
         {
             ID = id;
             LastName = lastname;

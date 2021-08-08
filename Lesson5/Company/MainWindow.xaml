@@ -9,7 +9,7 @@
         Title="MainWindow" Height="600" Width="921.75"
         x:Name="mainWindow" WindowStartupLocation="CenterScreen">
     <Grid>
-        
+
         <ListView ItemsSource="{Binding EmployeesList}" SelectedItem="{Binding SelectedEmployee}" x:Name="PersonsListView" Margin="10,10,394,10" SelectionMode="Single" SelectionChanged="PersonsListView_SelectionChanged">
             <ListView.View>
                 <GridView>
@@ -19,7 +19,6 @@
                     <GridViewColumn Width="auto" Header="Должность" DisplayMemberBinding="{Binding Position}"/>
                 </GridView>
             </ListView.View>
-            <Controls:PersonControl Height="100" Width="100"/>
         </ListView>
 
         <Controls:PersonControl x:Name="personControl" Height="367" Margin="0,10,10,0" VerticalAlignment="Top" Width="379" HorizontalAlignment="Right"/>

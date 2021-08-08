@@ -17,11 +17,11 @@
         <TextBox  Text="{Binding employee.FirstName}"  HorizontalAlignment="Left" Height="23" Margin="106,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="261"/>
         <TextBox  Text="{Binding employee.SecondName}" HorizontalAlignment="Left" Height="23" Margin="106,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="261"/>
         <TextBox  Text="{Binding employee.Position}"  HorizontalAlignment="Left" Height="23" Margin="106,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="261"/>
-        <ComboBox ItemsSource="{Binding CategoryList}" Text="{Binding employee.EmployeeCategory}"  HorizontalAlignment="Left" Margin="106,169,0,0" VerticalAlignment="Top" Width="261"/>
+        <ComboBox Text="{Binding employee.Category}" ItemsSource="{Binding CategoryList}" HorizontalAlignment="Left" Margin="106,169,0,0" VerticalAlignment="Top" Width="261"/>
         <CheckBox IsChecked="{Binding employee.Works}" Content="Работает" HorizontalAlignment="Left" Margin="296,229,0,0" VerticalAlignment="Top"/>
         <TextBox  Text="{Binding employee.Comment}" Margin="10,249,12,10" TextWrapping="Wrap"/>
         <Label    x:Name="tbDepartment" Content="Департамент:" HorizontalAlignment="Left" Margin="10,201,0,0" VerticalAlignment="Top"/>
-        <ComboBox ItemsSource="{Binding DepartmentList}" Text="{Binding employee.Company.Data.Department}" HorizontalAlignment="Left" Margin="106,201,0,0" VerticalAlignment="Top" Width="261"/>
+        <ComboBox Text="{Binding employee.department}" ItemsSource="{Binding DepartmentList}" HorizontalAlignment="Left" Margin="106,201,0,0" VerticalAlignment="Top" Width="261"/>
     </Grid>
 </UserControl>
 

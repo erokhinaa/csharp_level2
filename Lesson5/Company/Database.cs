@@ -17,18 +17,18 @@ namespace Company
         public Database()
         {
             Employees = new ObservableCollection<Employee>();
-            /*Employees.Add(new Employee(1, "Иванов","Иван","Иванович","Программист",true,Data.EmployeeCategory.FullTime,Data.Department.IT));
-            Employees.Add(new Employee(2, "Александров", "Александр", "Александрович", "Программист", true, Data.EmployeeCategory.FullTime, Data.Department.IT));
-            Employees.Add(new Employee(3, "Андреев", "Андрей", "Андреевич", "Тестировщик", true, Data.EmployeeCategory.FullTime, Data.Department.IT));
-            Employees.Add(new Employee(4, "Петров", "Петр", "Петрович", "Администратор", true, Data.EmployeeCategory.FullTime, Data.Department.IT));
-            Employees.Add(new Employee(5, "Олегов", "Олег", "Олегович", "Начальник отдела", true, Data.EmployeeCategory.FullTime, Data.Department.IT));
-            */
+            Employees.Add(new Employee(1, "Иванов","Иван","Иванович","Программист", Data.EmployeeCategory.FullTime,Data.Department.IT));
+            Employees.Add(new Employee(2, "Александров", "Александр", "Александрович", "Программист", Data.EmployeeCategory.FullTime, Data.Department.IT));
+            Employees.Add(new Employee(3, "Андреев", "Андрей", "Андреевич", "Тестировщик", Data.EmployeeCategory.FullTime, Data.Department.IT));
+            Employees.Add(new Employee(4, "Петров", "Петр", "Петрович", "Администратор", Data.EmployeeCategory.FullTime, Data.Department.IT));
+            Employees.Add(new Employee(5, "Олегов", "Олег", "Олегович", "Начальник отдела", Data.EmployeeCategory.FullTime, Data.Department.IT));
+            /*
             Employees.Add(new Employee(1, "Иванов", "Иван", "Иванович", "Программист"));
             Employees.Add(new Employee(2, "Александров", "Александр", "Александрович", "Программист"));
             Employees.Add(new Employee(3, "Андреев", "Андрей", "Андреевич", "Тестировщик"));
             Employees.Add(new Employee(4, "Петров", "Петр", "Петрович", "Администратор"));
             Employees.Add(new Employee(5, "Олегов", "Олег", "Олегович", "Начальник отдела"));
-
+            */
         }
     }
 }

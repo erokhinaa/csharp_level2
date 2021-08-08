@@ -34,7 +34,8 @@ namespace Company
 
             this.DataContext = this;
             
-            EmployeesList = database.Employees;            
+            EmployeesList = database.Employees;
+            //UpdateBinding();
         }
 
         private void PersonsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
