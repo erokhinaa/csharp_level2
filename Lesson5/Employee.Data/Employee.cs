@@ -122,6 +122,19 @@ namespace Person.Data
             this.department = department;
         }
 
+        public Employee(int id, string lastname, string firstname, string secondname, string position, EmployeeCategory category, Department department, bool works)
+        {
+            ID = id;
+            LastName = lastname;
+            FirstName = firstname;
+            SecondName = secondname;
+            Position = position;
+
+            Works = works;
+            Category = category;
+            this.department = department;
+        }
+
         public override string ToString()
         {
             return $"{ID} - {LastName} {FirstName} {SecondName}";

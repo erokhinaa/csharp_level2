@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Company"
         xmlns:Controls="clr-namespace:Department.Components;assembly=Department.Components" x:Class="Company.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="921.75"
+        Title="Company" Height="600" Width="921.75"
         x:Name="mainWindow" WindowStartupLocation="CenterScreen">
     <Grid>
 

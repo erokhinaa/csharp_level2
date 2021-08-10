@@ -35,6 +35,19 @@ namespace Company
             this.DataContext = this;
             
             EmployeesList = database.Employees;
+
+            //Employees = new ObservableCollection<Employee>();
+
+            // Очищаем таблицу Employees
+            database.DeleteFromEmployees();
+
+            // Записываем данные в БД
+            database.AddToDB(new Employee(1, "Иванов", "Иван", "Иванович", "Программист", Data.EmployeeCategory.FullTime, Data.Department.IT, true));
+            database.AddToDB(new Employee(2, "Александров", "Александр", "Александрович", "Программист", Data.EmployeeCategory.FullTime, Data.Department.IT, true));
+            database.AddToDB(new Employee(3, "Андреев", "Андрей", "Андреевич", "Тестировщик", Data.EmployeeCategory.FullTime, Data.Department.IT, true));
+            database.AddToDB(new Employee(4, "Петров", "Петр", "Петрович", "Администратор", Data.EmployeeCategory.FullTime, Data.Department.IT, true));
+            database.AddToDB(new Employee(5, "Олегов", "Олег", "Олегович", "Начальник отдела", Data.EmployeeCategory.FullTime, Data.Department.IT, true));
+                        
             //UpdateBinding();
         }
 
@@ -51,6 +64,7 @@ namespace Company
             if (PersonsListView.SelectedItems.Count > 0)
             {
                 database.Employees[database.Employees.IndexOf((Employee)PersonsListView.SelectedItems[0])] = personControl.employee;
+                database.UpdateDB(personControl.employee);
                 //personControl.UpdatePerson();
                 //UpdateBinding();
             }
