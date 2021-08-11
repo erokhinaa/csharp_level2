@@ -91,13 +91,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Company.Communication\Company.Communication.csproj">
+      <Project>{00d9b847-7839-423c-ad87-bdf78c519605}</Project>
+      <Name>Company.Communication</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Department.Components\Department.Controls.csproj">
       <Project>{b1d91f46-432a-4ba6-ae4d-899b08d019d0}</Project>
       <Name>Department.Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Employee.Data\Employee.Data.csproj">
-      <Project>{0e6b6382-d4e5-474f-b3f9-23df4d6c5cf1}</Project>
-      <Name>Employee.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
