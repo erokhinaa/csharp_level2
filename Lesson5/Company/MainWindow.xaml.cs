@@ -1,5 +1,5 @@
-﻿using Department.Components;
-using Person.Data;
+﻿using Company.Communication.CompanyService;
+using Department.Components;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -39,15 +39,15 @@ namespace Company
             //Employees = new ObservableCollection<Employee>();
 
             // Очищаем таблицу Employees
-            database.DeleteFromEmployees();
+            //database.DeleteFromEmployees();
 
             // Записываем данные в БД
-            database.AddToDB(new Employee(1, "Иванов", "Иван", "Иванович", "Программист", Data.EmployeeCategory.FullTime, Data.Department.IT, true));
-            database.AddToDB(new Employee(2, "Александров", "Александр", "Александрович", "Программист", Data.EmployeeCategory.FullTime, Data.Department.IT, true));
-            database.AddToDB(new Employee(3, "Андреев", "Андрей", "Андреевич", "Тестировщик", Data.EmployeeCategory.FullTime, Data.Department.IT, true));
-            database.AddToDB(new Employee(4, "Петров", "Петр", "Петрович", "Администратор", Data.EmployeeCategory.FullTime, Data.Department.IT, true));
-            database.AddToDB(new Employee(5, "Олегов", "Олег", "Олегович", "Начальник отдела", Data.EmployeeCategory.FullTime, Data.Department.IT, true));
-                        
+            database.Add(new Employee(1, "Иванов", "Иван", "Иванович", "Программист", (Company.Communication.CompanyService.EmployeeCategory)Data.EmployeeCategory.FullTime, (Company.Communication.CompanyService.Department)Data.Department.IT, true));
+            database.Add(new Employee(2, "Александров", "Александр", "Александрович", "Программист", (Company.Communication.CompanyService.EmployeeCategory)Data.EmployeeCategory.FullTime, (Company.Communication.CompanyService.Department)Data.Department.IT, true));
+            database.Add(new Employee(3, "Андреев", "Андрей", "Андреевич", "Тестировщик", (Company.Communication.CompanyService.EmployeeCategory)Data.EmployeeCategory.FullTime, (Company.Communication.CompanyService.Department)Data.Department.IT, true));
+            database.Add(new Employee(4, "Петров", "Петр", "Петрович", "Администратор", (Company.Communication.CompanyService.EmployeeCategory)Data.EmployeeCategory.FullTime, (Company.Communication.CompanyService.Department)Data.Department.IT, true));
+            database.Add(new Employee(5, "Олегов", "Олег", "Олегович", "Начальник отдела", (Company.Communication.CompanyService.EmployeeCategory)Data.EmployeeCategory.FullTime, (Company.Communication.CompanyService.Department)Data.Department.IT, true));
+            
             //UpdateBinding();
         }
 
@@ -64,7 +64,7 @@ namespace Company
             if (PersonsListView.SelectedItems.Count > 0)
             {
                 database.Employees[database.Employees.IndexOf((Employee)PersonsListView.SelectedItems[0])] = personControl.employee;
-                database.UpdateDB(personControl.employee);
+                database.Update(personControl.employee);
                 //personControl.UpdatePerson();
                 //UpdateBinding();
             }

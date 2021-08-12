@@ -1,5 +1,4 @@
-﻿using Company.Data;
-using Person.Data;
+﻿using Company.Communication.CompanyService;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

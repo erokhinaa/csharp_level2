@@ -16,3 +16,7 @@ D:\GeekBrains\projects\csharp_level2\Lesson5\Department.Components\obj\Debug\Dep
 D:\GeekBrains\projects\csharp_level2\Lesson5\Department.Components\obj\Debug\Department.Controls.csproj.GenerateResource.cache
 D:\GeekBrains\projects\csharp_level2\Lesson5\Department.Components\obj\Debug\Department.Controls.csproj.CoreCompileInputs.cache
 D:\GeekBrains\projects\csharp_level2\Lesson5\Department.Components\obj\Debug\Department.Controls.csproj.CopyComplete
+D:\GeekBrains\projects\csharp_level2\Lesson5\Department.Components\bin\Debug\Department.Components.dll.config
+D:\GeekBrains\projects\csharp_level2\Lesson5\Department.Components\bin\Debug\Company.Communication.dll
+D:\GeekBrains\projects\csharp_level2\Lesson5\Department.Components\bin\Debug\Company.Communication.pdb
+D:\GeekBrains\projects\csharp_level2\Lesson5\Department.Components\bin\Debug\Company.Communication.dll.config

@@ -1,4 +1,4 @@
-﻿using Person.Data;
+﻿using Company.Communication.CompanyService;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,119 +15,39 @@ namespace Company
     {
         // private string pcname = Environment.MachineName; 
         //private string ConnectionString = $@"Data Source={pcname}\SQLEXPRESS; Initial Catalog=Company; User ID=user1; Password=user; TRUSTED_CONNECTION = TRUE";
-        private string ConnectionString = "Data Source=DESKTOP-QTQ7ASM\\SQLEXPRESS; Initial Catalog=Company; User ID=user1; Password=user; TRUSTED_CONNECTION = TRUE";
+        //private string ConnectionString = "Data Source=DESKTOP-QTQ7ASM\\SQLEXPRESS; Initial Catalog=Company; User ID=user1; Password=user; TRUSTED_CONNECTION = TRUE";
+
+        CompanyServiceSoapClient soapClient = new CompanyServiceSoapClient();
 
         //public List<Employee> Employees { get; set; }
         public ObservableCollection<Employee> Employees { get; set; }
 
-        public int AddToDB(Employee employee)
+        public int Add(Employee employee)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            var result = soapClient.Add(employee);
+            if (result > 0) Employees.Add(employee);
+
+            return result;
+        }
+
+        public void Load()
+        {
+            foreach (var employee in soapClient.Load())
             {
-                connection.Open();
-
-                var Works = employee.Works ? 1 : 0;
-                string sqlExpression = $@"insert into Employees (ID, LastName, FirstName, SecondName, Position, Categoryid, Departmentid, Works) 
-                                                         values ({employee.ID}, '{employee.LastName}', '{employee.FirstName}', '{employee.SecondName}', '{employee.Position}', '{((int)Data.EmployeeCategory.FullTime)}', '{((int)Data.Department.IT)}', {Works});";
-
-                var command = new SqlCommand(sqlExpression, connection);
-                var res = command.ExecuteNonQuery();
-            
-                return res;
+                Employees.Add(employee);
             }
         }
 
-        public void LoadFromDB()
+        public int Update(Employee employee)
         {
-            Employees = new ObservableCollection<Employee>();
-            string sqlExpression = "select ID, LastName, FirstName, SecondName, Position, Categoryid, Departmentid, Works, Comment from Employees;";
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
-            {
-                connection.Open();
-
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            var employee = new Employee()
-                            {
-                                ID = (int)reader.GetValue(0),
-                                LastName = reader["LastName"].ToString(),
-                                FirstName = reader["FirstName"].ToString(),
-                                SecondName = reader["SecondName"].ToString(),
-                                Position = reader["Position"].ToString(),
-                                Category = (Data.EmployeeCategory)reader.GetInt32(5),
-                                department = (Data.Department)reader.GetInt32(6),
-                                Works = reader.GetBoolean(7),
-                                Comment = reader["Comment"].ToString()
-                            };
-
-                        Employees.Add(employee);
-                        }                        
-                    }
-                }                
-            }
-        }
-
-        public int UpdateDB(Employee employee)
-        {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
-            {
-                connection.Open();
-
-                var Works = employee.Works ? 1 : 0;
-                string sqlExpression = $@"update Employees set 
-                                                LastName = '{employee.LastName}', 
-                                                FirstName = '{employee.FirstName}', 
-                                                SecondName = '{employee.SecondName}', 
-                                                Position = '{employee.Position}', Categoryid = '{((int)Data.EmployeeCategory.FullTime)}', 
-                                                Departmentid = '{((int)Data.Department.IT)}', 
-                                                Works = '{Works}', 
-                                                Comment = '{employee.Comment}'
-                                          where ID = '{employee.ID}'; begin transaction commit;" ;
-
-                var command = new SqlCommand(sqlExpression, connection);
-                var res = command.ExecuteNonQuery();
-
-                return res;
-            }
-        }
-
-        // Тестовый метод для очистки таблицы Employees перед запуском приложения
-        public void DeleteFromEmployees()
-        {
-            string sqlExpression = "delete from Employees; begin transaction commit;";
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
-            {
-                connection.Open();
-
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                command.ExecuteNonQuery();                
-            }
+            return soapClient.Update(employee);            
         }
 
         public Database()
         {
-            // Загружаем данные из БД
-            LoadFromDB();
-            /*
             Employees = new ObservableCollection<Employee>();
-            Employees.Add(new Employee(1, "Иванов","Иван","Иванович","Программист", Data.EmployeeCategory.FullTime,Data.Department.IT));
-            Employees.Add(new Employee(2, "Александров", "Александр", "Александрович", "Программист", Data.EmployeeCategory.FullTime, Data.Department.IT));
-            Employees.Add(new Employee(3, "Андреев", "Андрей", "Андреевич", "Тестировщик", Data.EmployeeCategory.FullTime, Data.Department.IT));
-            Employees.Add(new Employee(4, "Петров", "Петр", "Петрович", "Администратор", Data.EmployeeCategory.FullTime, Data.Department.IT));
-            Employees.Add(new Employee(5, "Олегов", "Олег", "Олегович", "Начальник отдела", Data.EmployeeCategory.FullTime, Data.Department.IT));
-            
-            Employees.Add(new Employee(1, "Иванов", "Иван", "Иванович", "Программист"));
-            Employees.Add(new Employee(2, "Александров", "Александр", "Александрович", "Программист"));
-            Employees.Add(new Employee(3, "Андреев", "Андрей", "Андреевич", "Тестировщик"));
-            Employees.Add(new Employee(4, "Петров", "Петр", "Петрович", "Администратор"));
-            Employees.Add(new Employee(5, "Олегов", "Олег", "Олегович", "Начальник отдела"));
-            */
+            soapClient.DeleteFromEmployees();            
+            soapClient.Load();            
         }
     }
 }

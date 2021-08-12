@@ -33,3 +33,7 @@ D:\GeekBrains\projects\csharp_level2\Lesson5\Company\obj\Debug\Company.exe
 D:\GeekBrains\projects\csharp_level2\Lesson5\Company\obj\Debug\Company.pdb
 D:\GeekBrains\projects\csharp_level2\Lesson5\Company\bin\Debug\Department.Components.dll
 D:\GeekBrains\projects\csharp_level2\Lesson5\Company\bin\Debug\Department.Components.pdb
+D:\GeekBrains\projects\csharp_level2\Lesson5\Company\bin\Debug\Company.Communication.dll
+D:\GeekBrains\projects\csharp_level2\Lesson5\Company\bin\Debug\Company.Communication.pdb
+D:\GeekBrains\projects\csharp_level2\Lesson5\Company\bin\Debug\Company.Communication.dll.config
+D:\GeekBrains\projects\csharp_level2\Lesson5\Company\bin\Debug\Department.Components.dll.config
